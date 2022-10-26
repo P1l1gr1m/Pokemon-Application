@@ -3,6 +3,7 @@ package com.plcoding.pokemonapplication.pokemondetail
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -18,13 +19,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.coil.CoilImage
 import com.plcoding.pokemonapplication.data.remote.responses.Pokemon
+import com.plcoding.pokemonapplication.data.remote.responses.Type
 import com.plcoding.pokemonapplication.util.Resource
+import com.plcoding.pokemonapplication.util.parseTypeToColor
+import java.util.*
 
 @Composable
 fun PokemonDetailScreen(
@@ -33,7 +40,7 @@ fun PokemonDetailScreen(
     navController: NavController,
     topPadding: Dp = 20.dp,
     pokemonImageSize: Dp = 200.dp,
-    viewModel: PokemonDetailViewModel = hiltNavGraphViewModel()
+    viewModel: PokemonDetailViewModel = hiltNavGraphViewModel(),
 ) {
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
         value = viewModel.getPokemonInfo(pokemonName)
@@ -77,7 +84,7 @@ fun PokemonDetailScreen(
         )
         Box(contentAlignment = Alignment.TopCenter,
             modifier = Modifier
-            .fillMaxSize()) {
+                .fillMaxSize()) {
             if (pokemonInfo is Resource.Success) {
                 pokemonInfo.data?.sprites?.let {
                     CoilImage(
@@ -97,7 +104,7 @@ fun PokemonDetailScreen(
 @Composable
 fun PokemonDetailTopSection(
     navController: NavController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         contentAlignment = Alignment.TopStart,
@@ -126,12 +133,12 @@ fun PokemonDetailTopSection(
 }
 
 @Composable
-fun PokemonDetailScreenWrapper (
+fun PokemonDetailScreenWrapper(
     pokemonInfo: Resource<Pokemon>,
     modifier: Modifier = Modifier,
-    loadingModifier: Modifier = Modifier
+    loadingModifier: Modifier = Modifier,
 ) {
-    when(pokemonInfo) {
+    when (pokemonInfo) {
         is Resource.Success -> {
 
         }
@@ -148,6 +155,55 @@ fun PokemonDetailScreenWrapper (
                 color = MaterialTheme.colors.primary,
                 modifier = loadingModifier
             )
+        }
+    }
+}
+
+@Composable
+fun pokemonDetailSection(
+    pokemonInfo: Pokemon,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .fillMaxSize()
+            .offset(y = 70.dp)
+    ) {
+        Text(
+            text = "#${pokemonInfo.id} ${pokemonInfo.name.capitalize(Locale.ROOT)}",
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colors.onSurface
+        )
+
+    }
+}
+
+
+@Composable
+fun PokemonTypeSection(types: List<Type>) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        for (type in types) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(8.dp)
+                    .clip(CircleShape)
+                    .background(parseTypeToColor(type))
+                    .height(40.dp)
+            ) {
+                Text(
+                    text = type.type.name.capitalize(Locale.ROOT),
+                    color = Color.White,
+                    fontSize = 19.sp
+                )
+            }
         }
     }
 }
