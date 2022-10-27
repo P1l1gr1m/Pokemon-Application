@@ -13,4 +13,4 @@ App can be installed locally using console.<br>
 This app can be used by pokemon fans to see pokemons stats.<br>
 <br>
 # Build with:
-Retrofit2, JetPackCompose, Dagger - Hilt, Magic.
+Retrofit2, Jetpack Compose, Dagger - Hilt, Magic.
