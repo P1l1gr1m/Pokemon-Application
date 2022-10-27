@@ -3,6 +3,7 @@ package com.plcoding.pokemonapplication.pokemondetail
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import com.plcoding.pokemonapplication.R
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
@@ -13,12 +14,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -31,6 +35,7 @@ import com.plcoding.pokemonapplication.data.remote.responses.Pokemon
 import com.plcoding.pokemonapplication.data.remote.responses.Type
 import com.plcoding.pokemonapplication.util.Resource
 import com.plcoding.pokemonapplication.util.parseTypeToColor
+import java.lang.Math.round
 import java.util.*
 
 @Composable
@@ -140,7 +145,11 @@ fun PokemonDetailScreenWrapper(
 ) {
     when (pokemonInfo) {
         is Resource.Success -> {
-
+            PokemonDetailSection(
+                pokemonInfo = pokemonInfo.data!!,
+                modifier = modifier
+                    .offset(y = (-10).dp)
+            )
         }
         is Resource.Error -> {
             Text(
@@ -160,7 +169,7 @@ fun PokemonDetailScreenWrapper(
 }
 
 @Composable
-fun pokemonDetailSection(
+fun PokemonDetailSection(
     pokemonInfo: Pokemon,
     modifier: Modifier = Modifier,
 ) {
@@ -168,7 +177,7 @@ fun pokemonDetailSection(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxSize()
-            .offset(y = 70.dp)
+            .offset(y = 80.dp)
     ) {
         Text(
             text = "#${pokemonInfo.id} ${pokemonInfo.name.capitalize(Locale.ROOT)}",
@@ -176,7 +185,11 @@ fun pokemonDetailSection(
             textAlign = TextAlign.Center,
             color = MaterialTheme.colors.onSurface
         )
-
+        PokemonTypeSection(types = pokemonInfo.types)
+        PokemonDetailDataSection(
+            pokemonWeight = pokemonInfo.weight,
+            pokemonHeight = pokemonInfo.height
+        )
     }
 }
 
@@ -186,7 +199,7 @@ fun PokemonTypeSection(types: List<Type>) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .padding(16.dp)
+            .padding(23.dp)
     ) {
         for (type in types) {
             Box(
@@ -205,5 +218,68 @@ fun PokemonTypeSection(types: List<Type>) {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun PokemonDetailDataSection(
+    pokemonWeight: Int,
+    pokemonHeight: Int,
+    sectionHeight: Dp = 100.dp
+) {
+    val pokemonWeightKg = remember {
+        round(pokemonWeight * 100f) / 1000f
+    }
+    val pokemonHeightCm = remember {
+        round(pokemonHeight * 100f) / 10f
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        PokemonDetailDataItem(
+            dataValue = pokemonWeightKg,
+            dataUnit = "kg",
+            dataIcon = painterResource(id = R.drawable.ic_weight),
+            modifier = Modifier
+                .weight(1f)
+        )
+        Spacer(modifier = Modifier
+            .size(1.dp, sectionHeight)
+            .background(Color.Black)
+        )
+        PokemonDetailDataItem(
+            dataValue = pokemonHeightCm,
+            dataUnit = "cm",
+            dataIcon = painterResource(id = R.drawable.ic_height),
+            modifier = Modifier
+                .weight(1f)
+        )
+    }
+}
+
+@Composable
+fun PokemonDetailDataItem(
+    dataValue: Float, // weight, height value
+    dataUnit: String, // kg, cm
+    dataIcon: Painter, // icon height, weight
+    modifier: Modifier = Modifier
+) {
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier
+    ){
+        Icon(
+            painter = dataIcon,
+            contentDescription = null,
+            tint = MaterialTheme.colors.onSurface
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = "$dataValue$dataUnit",
+            color = MaterialTheme.colors.onSurface
+        )
     }
 }
