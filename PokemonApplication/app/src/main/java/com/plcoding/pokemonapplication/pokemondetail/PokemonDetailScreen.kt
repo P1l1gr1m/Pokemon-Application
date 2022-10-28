@@ -126,7 +126,7 @@ fun PokemonDetailTopSection(
         Icon(
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
-            tint = Color.White,
+            tint = Color.Black,
             modifier = Modifier
                 .size(36.dp)
                 .offset(16.dp, 16.dp)
