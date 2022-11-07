@@ -8,9 +8,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.palette.graphics.Palette
+import com.plcoding.pokemonapplication.R
 import com.plcoding.pokemonapplication.data.models.PokemonListEntry
 import com.plcoding.pokemonapplication.repository.PokemonRepository
+import com.plcoding.pokemonapplication.util.Constants.LINK_URL
 import com.plcoding.pokemonapplication.util.Constants.PAGE_SIZE
+import com.plcoding.pokemonapplication.util.Constants.PNG_FORMAT
 import com.plcoding.pokemonapplication.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -46,7 +49,11 @@ class PokemonListViewModel @Inject constructor(
                         } else {
                             entry.url.takeLastWhile { it.isDigit() }
                         }
-                        val url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png"
+                        val url = buildString {
+                            append(LINK_URL)
+                            append(number)
+                            append(PNG_FORMAT)
+                        }
                         PokemonListEntry(entry.name.capitalize(Locale.ROOT), url, number.toInt())
                     }
                     curPage++

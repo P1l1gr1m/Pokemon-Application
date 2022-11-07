@@ -19,7 +19,5 @@ data class Sprites(
     @SerializedName("front_shiny")
     val frontShiny: String,
     @SerializedName("front_shiny_female")
-    val frontShinyFemale: Any,
-    val other: Other,
-    val versions: Versions
+    val frontShinyFemale: Any
 )
