@@ -1,4 +1,4 @@
-package com.plcoding.pokemonapplication.pokemondetail
+package com.plcoding.pokemonapplication.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,8 +33,9 @@ import androidx.navigation.NavController
 import com.google.accompanist.coil.CoilImage
 import com.plcoding.pokemonapplication.data.remote.responses.Pokemon
 import com.plcoding.pokemonapplication.data.remote.responses.Type
-import com.plcoding.pokemonapplication.util.Resource
-import com.plcoding.pokemonapplication.util.parseTypeToColor
+import com.plcoding.pokemonapplication.domain.views.PokemonDetailViewModel
+import com.plcoding.pokemonapplication.domain.util.Resource
+import com.plcoding.pokemonapplication.domain.util.parseTypeToColor
 import java.lang.Math.round
 import java.util.*
 
@@ -157,7 +158,6 @@ fun PokemonDetailScreenWrapper(
                 color = Color.Red,
                 modifier = modifier
             )
-
         }
         is Resource.Loading -> {
             CircularProgressIndicator(

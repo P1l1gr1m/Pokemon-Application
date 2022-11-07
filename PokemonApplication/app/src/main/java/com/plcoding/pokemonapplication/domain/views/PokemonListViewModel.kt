@@ -1,4 +1,4 @@
-package com.plcoding.pokemonapplication.pokemonlist
+package com.plcoding.pokemonapplication.domain.views
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -8,13 +8,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.palette.graphics.Palette
-import com.plcoding.pokemonapplication.R
-import com.plcoding.pokemonapplication.data.models.PokemonListEntry
-import com.plcoding.pokemonapplication.repository.PokemonRepository
-import com.plcoding.pokemonapplication.util.Constants.LINK_URL
-import com.plcoding.pokemonapplication.util.Constants.PAGE_SIZE
-import com.plcoding.pokemonapplication.util.Constants.PNG_FORMAT
-import com.plcoding.pokemonapplication.util.Resource
+import com.plcoding.pokemonapplication.data.repository.PokemonRepository
+import com.plcoding.pokemonapplication.domain.model.PokemonListEntry
+import com.plcoding.pokemonapplication.domain.util.Constants.LINK_URL
+import com.plcoding.pokemonapplication.domain.util.Constants.PAGE_SIZE
+import com.plcoding.pokemonapplication.domain.util.Constants.PNG_FORMAT
+import com.plcoding.pokemonapplication.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
@@ -40,7 +39,7 @@ class PokemonListViewModel @Inject constructor(
         viewModelScope.launch {
             isLoading.value = true
             val result = repository.getPokemonList(PAGE_SIZE, curPage * PAGE_SIZE)
-            when(result) {
+            when (result) {
                 is Resource.Success -> {
                     endReached.value = curPage * PAGE_SIZE >= result.data!!.count
                     val pokemonsEntries = result.data.results.mapIndexed { index, entry ->

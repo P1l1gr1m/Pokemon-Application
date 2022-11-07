@@ -1,8 +1,8 @@
 package com.plcoding.pokemonapplication.di
 
 import com.plcoding.pokemonapplication.data.remote.PokeApi
-import com.plcoding.pokemonapplication.repository.PokemonRepository
-import com.plcoding.pokemonapplication.util.Constants.BASE_URL
+import com.plcoding.pokemonapplication.data.repository.PokemonRepository
+import com.plcoding.pokemonapplication.domain.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Singleton
     @Provides
     fun providePokemonRepository(

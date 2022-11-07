@@ -1,4 +1,4 @@
-package com.plcoding.pokemonapplication.pokemonlist
+package com.plcoding.pokemonapplication.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,7 +29,8 @@ import androidx.navigation.compose.navigate
 import coil.request.ImageRequest
 import com.google.accompanist.coil.CoilImage
 import com.plcoding.pokemonapplication.R
-import com.plcoding.pokemonapplication.data.models.PokemonListEntry
+import com.plcoding.pokemonapplication.domain.model.PokemonListEntry
+import com.plcoding.pokemonapplication.domain.views.PokemonListViewModel
 import com.plcoding.pokemonapplication.ui.theme.RobotoCondensed
 
 @Composable
@@ -54,7 +55,6 @@ fun PokemonListScreen(
         }
     }
 }
-
 
 @Composable
 fun PokemonList(
@@ -93,7 +93,6 @@ fun PokemonList(
             }
         }
     }
-
 }
 
 @Composable

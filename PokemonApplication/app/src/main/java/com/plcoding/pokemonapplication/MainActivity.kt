@@ -10,14 +10,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
-import com.plcoding.pokemonapplication.pokemondetail.PokemonDetailScreen
-import com.plcoding.pokemonapplication.pokemonlist.PokemonListScreen
+import com.plcoding.pokemonapplication.presentation.components.PokemonDetailScreen
+import com.plcoding.pokemonapplication.presentation.components.PokemonListScreen
 import com.plcoding.pokemonapplication.ui.theme.PokemonApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

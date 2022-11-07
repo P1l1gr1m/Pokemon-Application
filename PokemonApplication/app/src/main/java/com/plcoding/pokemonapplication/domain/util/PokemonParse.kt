@@ -1,4 +1,4 @@
-package com.plcoding.pokemonapplication.util
+package com.plcoding.pokemonapplication.domain.util
 
 import androidx.compose.ui.graphics.Color
 import com.plcoding.pokemonapplication.data.remote.responses.Type

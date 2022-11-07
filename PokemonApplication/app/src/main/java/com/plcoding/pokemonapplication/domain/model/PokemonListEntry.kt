@@ -1,4 +1,4 @@
-package com.plcoding.pokemonapplication.data.models
+package com.plcoding.pokemonapplication.domain.model
 
 data class PokemonListEntry(
     val pokemonName: String,
