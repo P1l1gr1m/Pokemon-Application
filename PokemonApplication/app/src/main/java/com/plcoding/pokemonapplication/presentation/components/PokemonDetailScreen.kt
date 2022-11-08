@@ -36,6 +36,8 @@ import com.plcoding.pokemonapplication.data.remote.responses.Type
 import com.plcoding.pokemonapplication.domain.views.PokemonDetailViewModel
 import com.plcoding.pokemonapplication.domain.util.Resource
 import com.plcoding.pokemonapplication.domain.util.parseTypeToColor
+import com.plcoding.pokemonapplication.domain.views.heightCalc
+import com.plcoding.pokemonapplication.domain.views.weightCalc
 import java.lang.Math.round
 import java.util.*
 
@@ -227,12 +229,8 @@ fun PokemonDetailDataSection(
     pokemonHeight: Int,
     sectionHeight: Dp = 100.dp
 ) {
-    val pokemonWeightKg = remember {
-        round(pokemonWeight * 100f) / 1000f
-    }
-    val pokemonHeightCm = remember {
-        round(pokemonHeight * 100f) / 10f
-    }
+    val pokemonWeightKg = remember { weightCalc(pokemonWeight) }
+    val pokemonHeightCm = remember { heightCalc(pokemonHeight) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -261,9 +259,9 @@ fun PokemonDetailDataSection(
 
 @Composable
 fun PokemonDetailDataItem(
-    dataValue: Float, // weight, height value
-    dataUnit: String, // kg, cm
-    dataIcon: Painter, // icon height, weight
+    dataValue: Float,
+    dataUnit: String,
+    dataIcon: Painter,
     modifier: Modifier = Modifier
 ) {
     Column (

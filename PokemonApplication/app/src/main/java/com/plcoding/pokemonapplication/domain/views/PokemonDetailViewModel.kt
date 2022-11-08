@@ -5,6 +5,7 @@ import com.plcoding.pokemonapplication.data.remote.responses.Pokemon
 import com.plcoding.pokemonapplication.domain.repository.PokemonRepository
 import com.plcoding.pokemonapplication.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.lang.Math.round
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,3 +16,7 @@ class PokemonDetailViewModel @Inject constructor(
         return repository.getPokemonInfo(pokemonName)
     }
 }
+
+fun weightCalc(pokemonWeight: Int): Float = (round(pokemonWeight * 100f) / 1000f)
+
+fun heightCalc(pokemonHeight: Int): Float = (round(pokemonHeight * 100f) / 10f)
