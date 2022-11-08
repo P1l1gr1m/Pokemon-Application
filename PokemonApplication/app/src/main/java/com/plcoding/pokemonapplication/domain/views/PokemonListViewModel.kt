@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.palette.graphics.Palette
-import com.plcoding.pokemonapplication.data.repository.PokemonRepository
+import com.plcoding.pokemonapplication.domain.repository.PokemonRepository
 import com.plcoding.pokemonapplication.domain.model.PokemonListEntry
 import com.plcoding.pokemonapplication.domain.util.Constants.LINK_URL
 import com.plcoding.pokemonapplication.domain.util.Constants.PAGE_SIZE

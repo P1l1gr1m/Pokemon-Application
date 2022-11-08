@@ -1,7 +1,7 @@
 package com.plcoding.pokemonapplication.di
 
 import com.plcoding.pokemonapplication.data.remote.PokeApi
-import com.plcoding.pokemonapplication.data.repository.PokemonRepository
+import com.plcoding.pokemonapplication.domain.repository.PokemonRepository
 import com.plcoding.pokemonapplication.domain.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
