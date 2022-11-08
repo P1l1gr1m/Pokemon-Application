@@ -6,9 +6,11 @@ import com.plcoding.pokemonapplication.domain.repository.PokemonRepository
 import com.plcoding.pokemonapplication.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.Math.round
+import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
 
 @HiltViewModel
+@Immutable
 class PokemonDetailViewModel @Inject constructor(
     private val repository: PokemonRepository
 ) : ViewModel() {

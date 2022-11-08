@@ -195,7 +195,6 @@ fun PokemonDetailSection(
     }
 }
 
-
 @Composable
 fun PokemonTypeSection(types: List<Type>) {
     Row(
